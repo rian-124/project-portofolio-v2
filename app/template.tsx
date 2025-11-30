@@ -1,6 +1,6 @@
 "use client";
 
-import { loadingAnimationPagein } from "@/utils/loadingAnimation";
+import { loadingAnimationPageIn } from "@/utils/loadingAnimation";
 import { useEffect, useState } from "react";
 import LoadingOverlay from "./components/common/LoadingOverlay";
 
@@ -9,7 +9,6 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setShowContent(false);
-    loadingAnimationPagein();
 
     const timer = setTimeout(() => {
       setShowContent(true);

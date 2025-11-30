@@ -3,8 +3,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
-import { loadingAnimationPagein, loadingAnimationPageOut } from "@/utils/loadingAnimation";
+import { loadingAnimationPageOut } from "@/utils/loadingAnimation";
 import { useRouter } from "next/navigation";
+import { useLayoutRef, useNavContext } from "@/context/LayoutRefContext";
 
 export type PillNavItem = {
   label: string;
@@ -47,6 +48,8 @@ const PillNav: React.FC<PillNavProps> = ({
   const navItemsRef = useRef<HTMLDivElement | null>(null);
   const hasLoadedRef = useRef(false);
   const router = useRouter();
+  const { layoutRef } = useLayoutRef();
+  const { setCurrentNavLabel } = useNavContext();
 
   useEffect(() => {
     const layout = () => {
@@ -159,11 +162,15 @@ const PillNav: React.FC<PillNavProps> = ({
   ) => {
     e.preventDefault();
 
-      if (!item?.href) return;
+    if (!item?.href) return;
+    setCurrentNavLabel(item.label);
 
-      loadingAnimationPageOut(() => {
+    loadingAnimationPageOut({
+      layoutRef,
+      onComplete: () => {
         router.push(item.href);
-      });
+      },
+    });
   };
 
   const handleLeave = (i: number) => {

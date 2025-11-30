@@ -4,7 +4,7 @@ import PixelTransition from "./common/PixelTransition";
 
 export default function ProfilImage() {
   return (
-    <div className="group w-[450px] flex justify-end items-center">
+    <section className="group w-[450px] flex justify-end items-center">
       <CardStack color="bg-sky-500" />
       <CardStack color="bg-green-500" rotate="-rotate-[30deg]" />
       <div className="self-end pb-5 p-5 rounded-xl bg-white border-2 border-b-[10px] shadow-amber-300 shadow-2xl group-hover:scale-125 transition-all duration-1000">
@@ -53,6 +53,6 @@ export default function ProfilImage() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

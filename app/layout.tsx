@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import {
-  Comic_Neue,
-  Geist_Mono,
-} from "next/font/google";
+import { Comic_Neue, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import ReactLenis from "lenis/react";
+import { MainProvider } from "@/context/LayoutRefContext";
 
-const geistSans = Comic_Neue({
-  variable: "--font-comicNeue",
+const comicNeue = Comic_Neue({
+  variable: "--font-comicneue",
   weight: ["700"],
   subsets: ["latin"],
 });
@@ -29,9 +28,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Navbar />
-        <main className="w-full overflow-hidden">{children}</main>
+      <body className={`${comicNeue.variable} ${geistMono.variable}`}>
+        <MainProvider>
+          <Navbar />
+          <ReactLenis root>{children}</ReactLenis>
+        </MainProvider>
       </body>
     </html>
   );

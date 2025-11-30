@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <section className="relative flex items-center h-[450px] px-28">
+    <main className="relative flex items-center h-[450px] px-28">
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -16,6 +16,6 @@ export default function Home() {
         <Introdution />
       </motion.div>
       <ProfilImage />
-    </section>
+    </main>
   );
 }

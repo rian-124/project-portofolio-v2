@@ -18,7 +18,7 @@ export default function Introdution() {
           {/* introdution start */}
           <ScrambleText>Afrian Fahrurrozi</ScrambleText>
           <div className="flex gap-5 items-center">
-            <h2 className="text-3xl  md:text-5xl">Hi, Folks</h2>
+            <h2 className="text-3xl text-black md:text-5xl">Hi, Folks</h2>
             <Image
               src={"/emoteHello.gif"}
               alt="emoteHello"
@@ -27,8 +27,8 @@ export default function Introdution() {
               priority
             />
           </div>
-          <h2 className="text-3xl md:text-3xl">
-            I'm{" "}
+          <h2 className="text-3xl md:text-3xl text-black">
+            I'm
             <TextType
               text={["Junior web developer", "fullstack developer"]}
               typingSpeed={75}
