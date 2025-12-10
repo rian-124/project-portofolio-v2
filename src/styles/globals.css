@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+:root {
+  --background: #bf360c;
+  --foreground: #ffffff;
+  --font-comicneue: "Comic Neue", cursive;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-comicneue: var(--font-comicneue);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #bf360c;
+    --foreground: #ffffff;
+  }
+}
+
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 32s linear infinite;
+  }
+}
+
+.active {
+  @apply border-2 bg-black border-white border-b-[10px] text-amber-300 px-5 py-2 rounded-xl;
+}
+
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  background-size: cover;
+  color: var(--foreground);
+  font-family: var(--font-comicneue);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-image: url("/image/bg-pattern.svg");
+  z-index: -1;
+  opacity: 0.35;
+}
