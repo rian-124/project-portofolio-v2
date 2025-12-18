@@ -8,6 +8,8 @@ import {
 import { collection, getDocs, limit, query } from "firebase/firestore";
 import { COLLECTION_NAMES } from "~/utils/collection";
 import { db } from "~/utils/firebase";
+import { convertSpaceSlug } from "~/utils/convertSpaceSlug";
+
 export async function getAbout(): Promise<About | null> {
   try {
     const ref = collection(db, COLLECTION_NAMES.ABOUT);
@@ -132,5 +134,28 @@ export async function getProjects(): Promise<Projects[]> {
   } catch (error) {
     console.error(`Something wrong with server: ${error}`);
     return [];
+  }
+}
+
+export async function getProjectBySlug(slug : string): Promise<Projects | null> {
+  try {
+    const ref = collection(db, COLLECTION_NAMES.PROJECTS);
+    const snap = await getDocs(ref);
+
+    const projectSlugDoc = snap.docs.find(
+      (doc) => convertSpaceSlug(doc.data().title) === slug
+    );
+
+    if (!projectSlugDoc) {
+      console.log("Data is empty");
+      return null;
+    }
+
+    const projectSlugData = projectSlugDoc.data() as Projects;
+
+    return projectSlugData;
+  } catch (error) {
+    console.error(`Something wrong with server: ${error}`);
+    return null;
   }
 }

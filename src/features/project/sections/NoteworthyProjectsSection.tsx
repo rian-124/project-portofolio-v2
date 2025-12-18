@@ -1,15 +1,8 @@
 "use client";
 
-import { Project } from "next/dist/build/swc/types";
-import Image from "next/image";
 import { useState } from "react";
-import { BiLink } from "react-icons/bi";
-import { CgDetailsLess } from "react-icons/cg";
-import { FiGithub } from "react-icons/fi";
-import useSWR from "swr";
-import { getProjects } from "~/service/firebase/firebaseService";
 import { Projects } from "~/types/collection";
-
+import ProjectItem from "../components/ProjectItem";
 
 type CategoryStack = "website" | "mobile" | "dekstop";
 
@@ -19,8 +12,9 @@ interface NoteworthyProjectsSectionProps {
   projects: Projects[];
 }
 
-export default function NoteworthyProjectsSection({projects} : NoteworthyProjectsSectionProps) {
-  // const { data: projects } = useSWR<Projects[]>('projects', () => getProjects());
+export default function NoteworthyProjectsSection({
+  projects,
+}: NoteworthyProjectsSectionProps) {
   const [category, setCategory] = useState<CategoryStack>("website");
 
   const handleTechStack = (item: CategoryStack) => {
@@ -59,58 +53,11 @@ export default function NoteworthyProjectsSection({projects} : NoteworthyProject
         </ul>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
-        {projects.filter((project) => project.category === category).map((project : Projects, index: number) => (
-          <div
-            key={index}
-            className="relative border-2 border-black rounded-xl group overflow-hidden"
-          >
-            {/* IMAGE */}
-            <div className="w-full h-[350px] sm:h-[180px] md:h-[200px] lg:h-[230px] relative">
-              <Image
-                src={project.image[0]}
-                alt={project.title}
-                fill
-                className="object-cover"
-              />
-            </div>
-
-            {/* button */}
-            <div className="absolute -top-32 group-hover:top-0 w-full  opacity-0 group-hover:opacity-100 transition-all duration-300">
-              <div className="flex items-center justify-end gap-1 p-2">
-                <div className="rounded-full w-8 h-8 bg-black flex justify-center items-center">
-                  <button>
-                    <CgDetailsLess />
-                  </button>
-                </div>
-                <div className="rounded-full w-8 h-8 bg-black flex justify-center items-center">
-                  <button>
-                    <BiLink />
-                  </button>
-                </div>
-                <div className="rounded-full w-8 h-8 bg-black flex justify-center items-center">
-                  <button>
-                    <FiGithub />
-                  </button>
-                </div>
-              </div>
-            </div>
-            {/* CAPTION */}
-            <div className="bg-yellow-500 rounded-b-xl p-3 absolute z-10 w-full bottom-0">
-              <div className="flex gap-2 items-center">
-                <h1 className="text-black text-lg md:text-xl">
-                  {project.title}
-                </h1>
-                <span className="px-3 md:px-5 py-[1px] bg-black text-white rounded-full text-xs md:text-sm">
-                  {project.category}
-                </span>
-              </div>
-              {/* DESCRIPTION */}
-              <p className="max-h-0 opacity-0 group-hover:max-h-28 group-hover:opacity-100 text-xs md:text-sm transition-all duration-500 line-clamp-2">
-                {project.description}
-              </p>
-            </div>
-          </div>
-        ))}
+        {projects
+          .filter((project) => project.category === category)
+          .map((project: Projects, index: number) => (
+            <ProjectItem key={index + 1} projects={project} />
+          ))}
       </div>
     </section>
   );

@@ -20,10 +20,10 @@ export default function Introdution({ name, tagline, role } : IntroductionProps)
   const { setCurrentNavLabel } = useNavContext();
   const {  layoutRef } = useLayoutRef();
 
-  const handleClick = () => {
-    setCurrentNavLabel('about');
-    loadingAnimationPageOut({ layoutRef, onComplete: () => { router.push('/about') }})
-  }
+  // const handleClick = () => {
+  //   setCurrentNavLabel('about');
+  //   loadingAnimationPageOut({ layoutRef, onComplete: () => { router.push('/about') }})
+  // }
 
 
   return (
@@ -69,8 +69,9 @@ export default function Introdution({ name, tagline, role } : IntroductionProps)
         </MagneticEffect>
         <MagneticEffect>
           <ButtonLink
+          href="/about"
             className="bg-white cursor-pointer text-black"
-            onClick={handleClick}
+            // onClick={handleClick}
           >
             {" "}
             🥊 See More About Me

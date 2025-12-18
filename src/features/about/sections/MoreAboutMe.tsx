@@ -4,6 +4,7 @@ import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
 import useSWR from "swr";
 import MagneticEffect from "~/components/providers/MagneticEffect";
+import { TextReveal } from "~/components/shared/TextReveal";
 import Title from "~/components/ui/Title";
 import { getAbout } from "~/service/firebase/firebaseService";
 import { About } from "~/types/collection";
@@ -44,8 +45,8 @@ export default function MoreAboutMe() {
         <Title className="md:text-justify text-center">
           IT'S MORE ABOUT ME
         </Title>
-        <div className="font-semibold flex flex-col gap-5 text-white/70 text-justify">
-          <p>{about?.description}</p>
+        <div className="font-semibold flex flex-col gap-5 text-white/70">
+         <TextReveal className="text-xs">{`${about?.description}`}</TextReveal>
         </div>
       </div>
     </section>

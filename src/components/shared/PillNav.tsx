@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { loadingAnimationPageOut } from "~/utils/loadingAnimation";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useLayoutRef, useNavContext } from "~/context/LayoutRefContext";
 import { GiHamburgerMenu } from "react-icons/gi";
 import MagneticEffect from "../providers/MagneticEffect";
@@ -14,6 +14,7 @@ import { FiGithub } from "react-icons/fi";
 import { FaInstagram } from "react-icons/fa";
 import { PiTiktokLogoLight } from "react-icons/pi";
 import { SlSocialLinkedin } from "react-icons/sl";
+import LinkAnimation from "./LinkAnimation";
 
 export type PillNavItem = {
   label: string;
@@ -56,6 +57,7 @@ const PillNav: React.FC<PillNavProps> = ({
   const [showHumberger, setShowHumberger] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState<boolean>(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const layout = () => {
@@ -122,18 +124,19 @@ const PillNav: React.FC<PillNavProps> = ({
 
     layout();
 
-    const onResize = () => {  layout(), onScroll()};
-    
+    const onResize = () => {
+      layout(), onScroll();
+    };
+
     const onScroll = () => {
       const isMobile = window.innerWidth <= 768;
       if (isMobile || window.scrollY > 70) {
-        setShowHumberger(true);       
+        setShowHumberger(true);
       } else {
         setShowHumberger(false);
       }
-      
     };
-    onScroll(); 
+    onScroll();
     window.addEventListener("resize", onResize);
     window.addEventListener("scroll", onScroll);
 
@@ -166,24 +169,6 @@ const PillNav: React.FC<PillNavProps> = ({
       duration: 0.3,
       ease,
       overwrite: "auto",
-    });
-  };
-
-  const handleClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    item: PillNavItem
-  ) => {
-    e.preventDefault();
-
-    if (!item?.href) return;
-    setCurrentNavLabel(item.label);
-    setIsMenuOpen(false);
-
-    loadingAnimationPageOut({
-      layoutRef,
-      onComplete: () => {
-        router.push(item.href);
-      },
     });
   };
 
@@ -296,18 +281,18 @@ const PillNav: React.FC<PillNavProps> = ({
               return (
                 <li key={item.href} role="none" className="flex h-full">
                   {isRouterLink(item.href) ? (
-                    <Link
+                    <LinkAnimation
                       role="menuitem"
                       href={item.href}
                       className={basePillClasses}
                       style={pillStyle}
                       aria-label={item.ariaLabel || item.label}
+                      label={item.label}
                       onMouseEnter={() => handleEnter(i)}
                       onMouseLeave={() => handleLeave(i)}
-                      onClick={(e) => handleClick(e, item)}
                     >
                       {PillContent}
-                    </Link>
+                    </LinkAnimation>
                   ) : (
                     <a
                       role="menuitem"
@@ -337,10 +322,12 @@ const PillNav: React.FC<PillNavProps> = ({
           {/* Button di atas spinner */}
           <MagneticEffect>
             <button
-              className="relative z-[10] cursor-pointer bg-black md:w-20 md:h-20 w-16 h-16 rounded-full flex justify-center items-center"
+              className="relative z-[10] cursor-pointer flex-col gap-2 bg-black md:w-20 md:h-20 w-16 h-16 rounded-full flex justify-center items-center group"
               onClick={() => setIsMenuOpen((prev) => !prev)}
             >
-              <GiHamburgerMenu size={32} className="" />
+              <div className="bg-white rounded-full w-10 h-[2px]"></div>
+              <div className={`bg-white rounded-full ${ isMenuOpen ? 'w-10' :  'w-7' } group-hover:w-10 transition-all duration-300 h-[2px]`}></div>
+              <div className={`bg-white rounded-full ${ isMenuOpen ? 'w-10' :  'w-4' } group-hover:w-10 transition-all duration-300  h-[2px]`}></div>
             </button>
           </MagneticEffect>
         </motion.div>
@@ -403,9 +390,13 @@ const PillNav: React.FC<PillNavProps> = ({
                     opacity: { duration: 0.2 },
                   }}
                 >
-                  <Link href={item.href} onClick={(e) => handleClick(e, item)}>
+                  <LinkAnimation
+                    href={item.href}
+                    label={item.label}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
                     {removeEmoji(item.label.toUpperCase())}
-                  </Link>
+                  </LinkAnimation>
                 </motion.li>
               </MagneticEffect>
             ))}

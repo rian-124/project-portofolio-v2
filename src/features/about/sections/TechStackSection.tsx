@@ -66,9 +66,7 @@ export default function TechStackSection() {
 
   return (
     <section>
-      <Title className="md:p-10 p-5 text-center">
-        Tech Stack That I Use
-      </Title>
+      <Title className="md:p-10 p-5 text-center">Tech Stack That I Use</Title>
       <div>
         <div className="flex flex-col gap-5 justify-center items-center">
           <ul className="flex gap-3 md:w-[42rem] w-full border justify-between items-center p-3 rounded-md px-10 text-center md:text-base text-xs">
@@ -80,8 +78,8 @@ export default function TechStackSection() {
                 }
                 className={`w-full p-2 cursor-pointer border rounded-md transition-all duration-300 ${
                   category === item.toLowerCase()
-                    ? "bg-yellow-500 border-black border-b-8 border"
-                    : "hover:border-b-8 hover:border-black hover:border-2 hover:bg-yellow-500"
+                    ? "bg-yellow-500 border-black border-b-8 border text-black"
+                    : "hover:border-b-8 hover:border-black hover:border-2 hover:bg-yellow-500 hover:text-black"
                 }`}
               >
                 {item}
@@ -93,9 +91,8 @@ export default function TechStackSection() {
                 w-full 
                 md:w-[42rem] 
                 grid 
-                grid-cols-2 
-                sm:grid-cols-3 
-                lg:grid-cols-4 
+                grid-cols-3 
+                md:grid-cols-4 
                 gap-5
             `}
           >
@@ -103,14 +100,13 @@ export default function TechStackSection() {
               techStack[category]?.map((item) => (
                 <div
                   key={item.name}
-                  className="flex flex-col items-center bg-yellow-500 text-white border border-black p-4 rounded-xl text-center hover:border-b-8 hover:border-2 transition-all duration-300"
+                  className="flex flex-col w-28 h-28 sm:w-12 sm:h-12 md:w-40 md:h-40 items-center bg-yellow-500 text-white border border-black p-4 rounded-xl text-center hover:border-b-8 hover:border-2 transition-all duration-300"
                 >
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16">
-                    {React.cloneElement(item.icon, {
-                      className: "w-full h-full text-black",
-                    })}
-                  </div>
-                  <h3 className="md:text-xl text-sm mt-2 font-semibold">
+                  {React.cloneElement(item.icon, {
+                    className: "w-full h-full text-black",
+                  })}
+
+                  <h3 className="md:text-xl text-sm mt-2 font-semibold text-black">
                     {item.name}
                   </h3>
                 </div>

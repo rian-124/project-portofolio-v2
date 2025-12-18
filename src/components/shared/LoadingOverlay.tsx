@@ -1,18 +1,29 @@
+"use client";
+
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { useLayoutRef, useNavContext } from "~/context/LayoutRefContext";
 import UseIsoMorphicLayoutEffect from "~/hooks/UseIsoMorphicLayoutEffect";
-import { loadingAnimationPageIn, loadingAnimationPageOut } from "~/utils/loadingAnimation";
+import { loadingAnimationPageIn } from "~/utils/loadingAnimation";
 import { removeEmoji } from "~/utils/removeEmoji";
-
 
 export default function LoadingOverlay() {
   const { layoutRef } = useLayoutRef();
   const { currentNavLabel } = useNavContext();
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  const lastPath = pathname
+    .split("/")
+    .filter(Boolean)
+    .pop()
+    ?.replace(/-/g, " ")
+    .toUpperCase();
 
   UseIsoMorphicLayoutEffect(() => {
+    setMounted(true);
     const ctx = loadingAnimationPageIn({ layoutRef });
-    
+
     return () => ctx.revert();
   }, [pathname]);
 
@@ -25,7 +36,9 @@ export default function LoadingOverlay() {
         <div className="nav-rounded-1 h-[120%] w-[100%] bg-yellow-500  -bottom-[60%]  rounded-[200%_200%] absolute "></div>
         <div className="nav-rounded-2 h-[120%] w-[100%] bg-yellow-500  -top-[60%]  rounded-[200%_200%] absolute "></div>
         <h1 className="md:text-9xl text-7xl font-mono text-black text-center font-bold will-change-transform [-webkit-perspective:1000]">
-          {removeEmoji(currentNavLabel.toUpperCase()) || "🚀 HOME"}
+          {mounted
+            ? removeEmoji(currentNavLabel.toUpperCase())
+            : lastPath}
         </h1>
       </div>
     </>

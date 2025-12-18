@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { encode } from "qss";
 import { MdWorkHistory } from "react-icons/md";
+import { motion } from "framer-motion";
 
 interface ExperienceItemProps {
   position?: "left" | "right";
@@ -45,22 +46,22 @@ export default function ExperienceItem({
         <div className="absolute -left-7 top-1/2 -translate-y-1/2 md:left-1/2 md:-translate-x-1/2 md:w-20 md:h-20 w-16 h-16 bg-yellow-500 rounded-full border-4 border-gray-900 p-3 flex justify-center items-center group">
           <MdWorkHistory size={40} className="text-black" />
           <div className="absolute -bottom-20 scale-0 bg-white group-hover:scale-100 border-b-8 border-black z-10 transition duration-300 border-2 rounded-xl w-[14rem] h-[8rem] overflow-hidden">
-           <Link href={sites} target="_blank">
-            <Image
-              src={src}
-              width={200}
-              height={125}
-              quality={50}
-              layout="fixed"
-              priority={true}
-              alt="thumbnail"
-              className="w-full h-full object-cover"
-            />
-           </Link>
+            <Link href={sites} target="_blank">
+              <Image
+                src={src}
+                width={200}
+                height={125}
+                quality={50}
+                layout="fixed"
+                priority={true}
+                alt="thumbnail"
+                className="w-full h-full object-cover"
+              />
+            </Link>
           </div>
         </div>
         <div
-          className={`px-16 md:gap-40 gap-4 md:px-0 w-full ${
+          className={`pl-10 md:gap-40 gap-4 md:px-0 w-full ${
             position === "right" ? "md:flex-row" : "md:flex-row-reverse"
           } md:justify-between md:items-center flex flex-col`}
         >
@@ -78,9 +79,11 @@ export default function ExperienceItem({
               </h3>
               <h3 className="text-lg text-black font-mono">{subTitle}</h3>
             </div>
-            <p className="mb-4 text-sm font-normal text-justify text-black">
-              {description}
-            </p>
+            <motion.div>
+              <p className="mb-4 md:text-sm text-xs font-normal text-justify text-black">
+                {description}
+              </p>
+            </motion.div>
           </div>
         </div>
       </div>

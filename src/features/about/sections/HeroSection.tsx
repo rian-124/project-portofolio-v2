@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -8,24 +8,25 @@ import useSWR from "swr";
 import { getAbout } from "~/service/firebase/firebaseService";
 
 export default function HeroSection() {
-
   return (
     <section className="text-center md:p-20 py-20">
       <MagneticEffect>
         <div className="inline-block relative font-mono uppercase">
-          <SplitText
-            text="Afrian"
-            className="md:text-9xl text-7xl font-bold text-center text-yellow-500"
-            delay={100}
-            duration={0.6}
-            ease="power3.out"
-            splitType="chars"
-            from={{ opacity: 0, y: 40 }}
-            to={{ opacity: 1, y: 0 }}
-            threshold={0.1}
-            rootMargin="-100px"
-            textAlign="center"
-          />
+          <MagneticEffect>
+            <SplitText
+              text="Afrian"
+              className="md:text-9xl text-7xl font-bold text-center text-yellow-500"
+              delay={100}
+              duration={0.6}
+              ease="power3.out"
+              splitType="chars"
+              from={{ opacity: 0, y: 40 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-100px"
+              textAlign="center"
+            />
+          </MagneticEffect>
 
           {/* star kiri atas */}
           <motion.div

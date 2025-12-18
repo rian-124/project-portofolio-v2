@@ -28,17 +28,17 @@ export default function CertificateItem({ title, issuer, link, image }: Certific
   }
 
   return (
-    <div className="relative flex justify-between gap-3 items-center p-3 bg-white rounded-xl border border-b-8 border-black">
-      <div className="flex items-center gap-3">
-        <div className="bg-yellow-500 p-4 rounded-full inline-block text-black border">
+    <div className="relative flex md:justify-between md:flex-row flex-col gap-3 items-center p-3 bg-white rounded-xl border border-b-8 border-black">
+      <div className="w-full flex items-center justify-center gap-3">
+        <div className="bg-yellow-500 p-4 rounded-full inline-block text-black">
           <GrCertificate size={32} />
         </div>
-        <div className="text-black font-mono">
+        <div className="flex flex-col md:flex-row items-center md:justify-between w-full">
+          <div className="text-black font-mono">
           <h1 className="text-lg font-bold">{title}</h1>
           <h2 className="text-sm">{issuer}</h2>
         </div>
-      </div>
-      <div className="text-black w-1/3  flex justify-end items-center gap-3">
+      <div className="text-black md:self-center self-start flex justify-start items-center gap-3">
         <div className={`p-2 w-10 h-10 text-center rounded-full border-2 border-black ${hasPreview ? 'hover:bg-yellow-500' : 'opacity-50'} transition-colors duration-500`}>
           <button
             type="button"
@@ -57,6 +57,8 @@ export default function CertificateItem({ title, issuer, link, image }: Certific
           <Link href={link} target="_blank" className={`${hasLink ? 'cursor-pointer' : 'cursor-not-allowed'}`}>
             <BiLink size={20} />
           </Link>
+        </div>
+      </div>
         </div>
       </div>
       <Lightbox
