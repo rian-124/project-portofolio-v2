@@ -34,6 +34,7 @@ export interface Certificates {
 export interface Projects {
   date: string;
   description: string;
+  demo: string;
   github: string;
   image: string[];
   tech: string[];

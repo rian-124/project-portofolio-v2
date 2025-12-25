@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import HeaderTitle from "~/components/shared/HeaderTitle";
+import LinkAnimation from "~/components/shared/LinkAnimation";
 import { Projects } from "~/types/collection";
 import { convertSpaceSlug } from "~/utils/convertSpaceSlug";
 
@@ -16,6 +16,7 @@ export default function HighlightProjectSection({
 }: HighlightProjectSectionProps) {
 
   const convertSlug = convertSpaceSlug(highLightProject.title);
+  const optionLinkProject = highLightProject.demo ? highLightProject.demo : highLightProject.github;
 
   return (
     <section className="md:h-[39rem]">
@@ -26,6 +27,8 @@ export default function HighlightProjectSection({
             <Image
               src={highLightProject.image[0]}
               alt={highLightProject.title}
+              sizes="(max-width: 768px) 300px, 500px"
+              quality={100}
               fill
               className="object-cover"
             />
@@ -34,6 +37,8 @@ export default function HighlightProjectSection({
             <Image
               src={highLightProject.image[3]}
               alt={highLightProject.title}
+              sizes="(max-width: 768px) 300px, 500px"
+              quality={100}
               fill
               className="object-cover"
             />
@@ -42,6 +47,8 @@ export default function HighlightProjectSection({
             <Image
               src={highLightProject.image[1]}
               alt={highLightProject.title}
+              sizes="(max-width: 768px) 300px, 500px"
+              quality={100}
               fill
               className="object-cover"
             />
@@ -56,15 +63,16 @@ export default function HighlightProjectSection({
               {highLightProject.description}
             </p>
             <div className="flex gap-2">
-              <Link
+              <LinkAnimation
                 href={`/project/${convertSlug}`}
+                label={highLightProject.title}
                 className="bg-yellow-500 rounded-lg p-2 px-10 text-center border-2 border-b-8 border-black"
               >
                 More 🙋‍♂️
-              </Link>
-              <button className="bg-white rounded-lg p-2 px-10 text-center border-2 border-b-8 border-black text-black">
+              </LinkAnimation>
+              <a href={optionLinkProject} target="_blank" className="bg-white rounded-lg p-2 px-10 text-center border-2 border-b-8 border-black text-black">
                 Preview {""} 🚀
-              </button>
+              </a>
             </div>
           </div>
         </div>

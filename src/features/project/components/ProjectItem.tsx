@@ -1,39 +1,31 @@
+'use client'
+
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 import { BiLink } from "react-icons/bi";
 import { CgDetailsLess } from "react-icons/cg";
 import { FiGithub } from "react-icons/fi";
-import { useLayoutRef, useNavContext } from "~/context/LayoutRefContext";
+import LinkAnimation from "~/components/shared/LinkAnimation";
 import { Projects } from "~/types/collection";
 import { convertSpaceSlug } from "~/utils/convertSpaceSlug";
-import { loadingAnimationPageOut } from "~/utils/loadingAnimation";
 
 interface ProjectItemProps {
   projects: Projects;
 }
 
 export default function ProjectItem({ projects }: ProjectItemProps) {
-  const { setCurrentNavLabel } = useNavContext();
-  const { layoutRef } = useLayoutRef();
-  const router = useRouter();
-  const pathname = usePathname();
+
+  const [hoverProject, setHoverProject] = useState(false);
+
+  const hoverProjectHandler = () => {
+
+    setHoverProject(prev => !prev); 
+
+  }
 
   const convertSlug = convertSpaceSlug(projects.title);
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    console.log(pathname)
-    setCurrentNavLabel(`${projects.title}`);
-    loadingAnimationPageOut({
-      layoutRef,
-      onComplete: () => {
-        router.push(`/project/${convertSlug}`);
-      },
-    });
-  };
-
   return (
-    <div className="relative border-2 border-black rounded-xl group overflow-hidden">
+    <div onClick={hoverProjectHandler} className="relative border-2 border-black rounded-xl group overflow-hidden">
       {/* IMAGE */}
       <div className="w-full h-[350px] sm:h-[180px] md:h-[200px] lg:h-[230px] relative">
         <Image
@@ -45,22 +37,22 @@ export default function ProjectItem({ projects }: ProjectItemProps) {
       </div>
 
       {/* button */}
-      <div className="absolute -top-32 group-hover:top-0 w-full  opacity-0 group-hover:opacity-100 transition-all duration-300">
+      <div className={`absolute w-full ${hoverProject ? 'top-0 opacity-100' : '-top-32 opacity-0' } group-hover:top-0 group-hover:opacity-100 transition-all duration-300`}>
         <div className="flex items-center justify-end gap-1 p-2">
           <div className="rounded-full w-8 h-8 bg-black flex justify-center items-center">
-            <Link href={`/project/${convertSlug}`} onClick={(e) => handleClick(e)}>
+            <LinkAnimation href={`/project/${convertSlug}`} label={projects.title} className={`${projects.demo ? "cursor-not-allowed" : "cursor-pointer"}`}>
               <CgDetailsLess />
-            </Link>
+            </LinkAnimation>
           </div>
           <div className="rounded-full w-8 h-8 bg-black flex justify-center items-center">
-            <button>
+            <a href={projects.demo} className={`${projects.demo ? 'cursor-pointer' : 'cursor-not-allowed'}`}>
               <BiLink />
-            </button>
+            </a>
           </div>
           <div className="rounded-full w-8 h-8 bg-black flex justify-center items-center">
-            <button>
+            <a href={projects.demo} className={`${projects.github ? 'cursor-pointer' : 'cursor-not-allowed'}`} >
               <FiGithub />
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -73,7 +65,7 @@ export default function ProjectItem({ projects }: ProjectItemProps) {
           </span>
         </div>
         {/* DESCRIPTION */}
-        <p className="max-h-0 opacity-0 group-hover:max-h-28 group-hover:opacity-100 text-xs md:text-sm transition-all duration-500 line-clamp-2">
+        <p className={`${hoverProject ? 'max-h-28 opacity-100' : 'opacity-0 max-h-0'} group-hover:max-h-28 group-hover:opacity-100 text-xs md:text-sm transition-all duration-500 line-clamp-2`}>
           {projects.description}
         </p>
       </div>

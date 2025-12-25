@@ -5,9 +5,6 @@ import ScrambleText from "../../../components/shared/ScrambleText";
 import TextType from "../../../components/shared/TextTypes";
 import MagneticEffect from "~/components/providers/MagneticEffect";
 import ButtonLink from "~/components/ui/ButtonLink";
-import { useLayoutRef, useNavContext } from "~/context/LayoutRefContext";
-import { loadingAnimationPageOut } from "~/utils/loadingAnimation";
-import { useRouter } from "next/navigation";
 
 interface IntroductionProps {
   name: string;
@@ -16,15 +13,6 @@ interface IntroductionProps {
 }
 
 export default function Introdution({ name, tagline, role } : IntroductionProps) {
-  const router = useRouter();
-  const { setCurrentNavLabel } = useNavContext();
-  const {  layoutRef } = useLayoutRef();
-
-  // const handleClick = () => {
-  //   setCurrentNavLabel('about');
-  //   loadingAnimationPageOut({ layoutRef, onComplete: () => { router.push('/about') }})
-  // }
-
 
   return (
     <div className="w-full flex flex-col gap-5">
@@ -36,7 +24,7 @@ export default function Introdution({ name, tagline, role } : IntroductionProps)
             Hi, Folks
           </h2>
           <Image
-            src={"/emoteHello.gif"}
+            src={"/image/emoteHello.gif"}
             alt="emoteHello"
             width={50}
             height={50}
@@ -71,7 +59,6 @@ export default function Introdution({ name, tagline, role } : IntroductionProps)
           <ButtonLink
           href="/about"
             className="bg-white cursor-pointer text-black"
-            // onClick={handleClick}
           >
             {" "}
             🥊 See More About Me

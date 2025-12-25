@@ -1,7 +1,22 @@
+'use client'
+
 import { BsGithub, BsInstagram, BsLinkedin } from "react-icons/bs";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { FaTiktok } from "react-icons/fa";
+import { ContactFormValues, contactSchema } from "~/validation/contactSchema";
 
 export default function ConnectSection() {
+
+  const { register, handleSubmit, formState: { errors, isSubmitting }, } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
+    mode: "onBlur",
+  })
+
+  const onSubmitHandler = async (data: ContactFormValues) => {
+    console.log(data)
+  }
+
   return (
     <section className="md:px-20 px-5">
       <div className="text-center font-mono font-bold md:text-5xl text-4xl text-yellow-500 p-5">
@@ -9,17 +24,15 @@ export default function ConnectSection() {
       </div>
       <div className="w-full md:flex md:flex-row flex flex-col py-5 gap-10">
         <div className="w-full md:w-1/2">
-          <form action="" className="space-y-10">
+          <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-10">
             <div className="flex gap-10">
               <div className="w-full relative group">
                 <input
-                  type="text"
-                  id="name"
-                  name="nama"
+                {...register("name")}
                   placeholder="Nama"
                   data-error-id="name-error"
                   required
-                  className="peer  border-b border-gray-400 p-3 w-full focus:outline-none  placeholder-transparent rounded-md"
+                  className="peer border-b border-gray-400 p-3 w-full focus:outline-none  placeholder-transparent rounded-md"
                 />
                 <div className="h-0.5 bg-yellow-500 origin-center scale-x-0 peer-hover:scale-x-100 peer-focus:scale-x-100 transition-transform duration-300"></div>
                 <label
@@ -31,22 +44,18 @@ export default function ConnectSection() {
                     *
                   </span>
                 </label>
-                <p
-                  id="name-error"
-                  className="hidden peer-invalid:block text-xs mt-2 text-red-500"
-                >
-                  Isi nama terlebih dahulu.
-                </p>
+                {errors.name && (
+                  <p className="text-xs mt-2 text-red-500">
+                    {errors.name.message}
+                  </p>
+                )}
               </div>
               <div className="w-full relative group">
                 <input
-                  type="email"
-                  id="E-mail"
-                  name="email"
+                  {...register("email")}
                   placeholder="E-mail"
-                  data-error-id="Email-error"
                   required
-                  className="peer  border-b border-gray-400 p-3 w-full focus:outline-none  placeholder-transparent rounded-md"
+                  className="peer border-b border-gray-400 p-3 w-full focus:outline-none  placeholder-transparent rounded-md"
                 />
                 <div className="h-0.5 bg-yellow-500 origin-center scale-x-0 peer-hover:scale-x-100 peer-focus:scale-x-100 transition-transform duration-300"></div>
                 <label
@@ -58,21 +67,18 @@ export default function ConnectSection() {
                     *
                   </span>
                 </label>
-                <p
-                  id="Email-error"
-                  className="hidden peer-invalid:block text-xs mt-2 text-red-500"
-                >
-                  Isi Email terlebih dahulu, dan masukkan email yang valid.
-                </p>
+                {errors.email && (
+                  <p className="text-xs mt-2 text-red-500">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
             </div>
             <div className="w-full relative group">
               <textarea
-                id="pesan"
                 rows={5}
                 name="body"
                 placeholder="Masukkan saran, kritik, atau masukan..."
-                data-error-id="pesan-error"
                 required
                 className="peer border-b border-gray-400 p-3 w-full focus:outline-none  placeholder-transparent resize-none"
               ></textarea>
