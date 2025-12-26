@@ -12,7 +12,11 @@ export default function GetInTouchSection() {
         <h1 className="flex items-center justify-center gap-3 text-yellow-500 font-bold">
           Get In Touch{" "}
           <MagneticEffect>
-            <LinkAnimation href={'/contact'} label="CONTACT" className="border rounded-full p-2 cursor-pointer md:w-16 md:h-16 w-10 h-10">
+            <LinkAnimation
+              href={"/contact"}
+              label="CONTACT"
+              className="border rounded-full cursor-pointer md:w-16 md:h-16 w-10 h-10 flex items-center justify-center"
+            >
               <MagneticEffect>
                 <BiArrowFromLeft />
               </MagneticEffect>
