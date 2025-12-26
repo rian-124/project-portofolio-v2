@@ -5,6 +5,7 @@ import ScrambleText from "../../../components/shared/ScrambleText";
 import TextType from "../../../components/shared/TextTypes";
 import MagneticEffect from "~/components/providers/MagneticEffect";
 import ButtonLink from "~/components/ui/ButtonLink";
+import LinkAnimation from "~/components/shared/LinkAnimation";
 
 interface IntroductionProps {
   name: string;
@@ -12,7 +13,11 @@ interface IntroductionProps {
   role: [];
 }
 
-export default function Introdution({ name, tagline, role } : IntroductionProps) {
+export default function Introdution({
+  name,
+  tagline,
+  role,
+}: IntroductionProps) {
 
   return (
     <div className="w-full flex flex-col gap-5">
@@ -51,18 +56,23 @@ export default function Introdution({ name, tagline, role } : IntroductionProps)
       {/* button start */}
       <div className="lg:flex lg:justify-start lg:items-center flex justify-center items-center gap-5 lg:text-xl text-sm">
         <MagneticEffect>
-          <ButtonLink className="bg-amber-300 cursor-pointer text-black">
+          <ButtonLink
+            href="image/[CV]_AfrianFahrurrozi_FullstackDeveloper_2025.pdf"
+            download
+            className="bg-amber-300 cursor-pointer text-black"
+          >
             🧾 My Resume
           </ButtonLink>
         </MagneticEffect>
         <MagneticEffect>
-          <ButtonLink
-          href="/about"
-            className="bg-white cursor-pointer text-black"
+          <LinkAnimation
+            href="/about"
+            label="ABOUT"
+            className="p-2 bg-white cursor-pointer text-black rounded-xl border-2 border-b-[10px] hover:scale-110 transition duration-200"
           >
             {" "}
             🥊 See More About Me
-          </ButtonLink>
+          </LinkAnimation>
         </MagneticEffect>
       </div>
       {/* button end */}

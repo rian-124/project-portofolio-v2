@@ -4,8 +4,6 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import SplitText from "~/components/shared/SplitText";
 import MagneticEffect from "~/components/providers/MagneticEffect";
-import useSWR from "swr";
-import { getAbout } from "~/service/firebase/firebaseService";
 
 export default function HeroSection() {
   return (

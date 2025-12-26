@@ -1,25 +1,23 @@
-import Link from "next/link";
-import React from "react";
+import Link, { LinkProps } from "next/link";
+import React, { ComponentPropsWithoutRef } from "react";
 
-interface ButtonLinkProps {
-  href?: string;
+type AnchorProps = Omit<ComponentPropsWithoutRef<"a">, "href">;
+
+interface ButtonLinkProps extends LinkProps, AnchorProps {
   children: React.ReactNode;
   className: string;
-  onClick?: () => void
 }
 
 export default function ButtonLink({
-  href,
   children,
   className,
-  onClick
+  ...props
 }: ButtonLinkProps) {
   return (
     <Link
-      href={href || ""}
+      {...props}
       className={`p-2 ${className} border-black rounded-xl border-2 border-b-[10px] hover:scale-110 transition duration-200`
     }
-    onClick={onClick}
     >
       {children}
     </Link>

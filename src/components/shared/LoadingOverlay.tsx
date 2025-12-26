@@ -1,9 +1,8 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLayoutRef, useNavContext } from "~/context/LayoutRefContext";
-import UseIsoMorphicLayoutEffect from "~/hooks/UseIsoMorphicLayoutEffect";
 import { loadingAnimationPageIn } from "~/utils/loadingAnimation";
 import { removeEmoji } from "~/utils/removeEmoji";
 
@@ -20,7 +19,7 @@ export default function LoadingOverlay() {
     ?.replace(/-/g, " ")
     .toUpperCase();
 
-  UseIsoMorphicLayoutEffect(() => {
+  useEffect(() => {
     setMounted(true);
     const ctx = loadingAnimationPageIn({ layoutRef });
 

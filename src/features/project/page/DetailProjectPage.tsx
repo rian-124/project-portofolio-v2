@@ -47,6 +47,7 @@ export default function DetailProjectPage({ params }: DetailProjectPageProps) {
             {projectSlugData.tech.map((item, index) => (
               <ButtonLink
                 key={index + 1}
+                href={""}
                 className="w-full text-xs text-center bg-yellow-500 uppercase text-black"
               >
                 {item}
